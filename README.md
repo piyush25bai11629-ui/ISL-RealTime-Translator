@@ -11,5 +11,5 @@ Follow these step-by-step instructions in your terminal (Command Prompt or VS Co
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/piyush25bai11629-ui/ISL-RealTime-Translator.git](https://github.com/piyush25bai11629-ui/ISL-RealTime-Translator.git)
+git clone https://github.com/piyush25bai11629-ui/ISL-RealTime-Translator.git  
 cd ISL-RealTime-Translator
