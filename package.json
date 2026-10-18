@@ -1,0 +1,21 @@
+{
+  "name": "isl-realtime-translator-web",
+  "version": "1.0.0",
+  "description": "Dedicated web portal and interactive AI showcase for Indian Sign Language Real-Time Translator",
+  "scripts": {
+    "dev": "npx serve -l 3000",
+    "start": "npx serve -l 3000",
+    "preview": "npx serve"
+  },
+  "keywords": [
+    "isl",
+    "indian-sign-language",
+    "mediapipe",
+    "deep-learning",
+    "accessibility",
+    "deaf-empowerment",
+    "vercel"
+  ],
+  "author": "ISL Real-Time Translator Team",
+  "license": "MIT"
+}

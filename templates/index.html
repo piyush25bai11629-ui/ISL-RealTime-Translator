@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISL Real-Time Translator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-section">
+                <div class="logo-box">
+                    <span>ISL</span>
+                </div>
+                <div class="header-titles">
+                    <h1>ISL Real-Time Translator</h1>
+                    <p>Neuromorphic frameworks • CNN + LSTM • single RGB webcam</p>
+                </div>
+            </div>
+            <div class="header-status">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span> Recognizing
+                </div>
+                <button class="backend-btn">Use backend</button>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="main-grid">
+            <!-- Left Column: Camera and Controls -->
+            <div class="left-col">
+                <div class="video-panel">
+                    <div class="fps-badge"><span class="pulse-dot red-dot"></span> 548</div>
+                    <img id="videoFeed" src="" alt="Video Feed" style="display: none;">
+                    <div id="cameraPlaceholder" class="placeholder">
+                        <i class="fa-solid fa-video-slash"></i>
+                        <p>Camera is stopped</p>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="controls-panel">
+                    <div class="controls-left">
+                        <button id="toggleCameraBtn" class="control-btn">Start</button>
+                        <button id="resetBtn" class="control-btn-alt">Reset</button>
+                        
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="landmarkOverlay" checked>
+                            <span class="checkmark"></span>
+                            Landmark overlay
+                        </label>
+                        
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="speakPredictions" checked>
+                            <span class="checkmark"></span>
+                            Speak predictions
+                        </label>
+                    </div>
+                    <button class="export-btn">Export corrections (0)</button>
+                </div>
+                <div class="footer-note">Isolated sign recognition over a 30-frame window at 150 Keypoints</div>
+            </div>
+
+            <!-- Right Column: Stats and Info -->
+            <div class="right-col">
+                <!-- Current Sign -->
+                <div class="panel current-sign-panel">
+                    <div class="panel-header">
+                        <span>CURRENT SIGN</span>
+                        <span class="subtext">85% confidence</span>
+                    </div>
+                    <div class="sign-box">
+                        <h2 id="gestureText">Waiting...</h2>
+                        <div class="confidence-bar-container">
+                            <div class="confidence-bar" id="confidenceBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentence -->
+                <div class="panel sentence-panel">
+                    <div class="panel-header">
+                        <span>SENTENCE</span>
+                        <div class="sentence-actions">
+                            <span id="speakingStatus">Speaking...</span>
+                            <button id="clearSentenceBtn">Clear</button>
+                        </div>
+                    </div>
+                    <div class="sentence-box">
+                        <p id="sentenceText">No signs detected yet.</p>
+                    </div>
+                    <div class="history-tags" id="historyTags">
+                        <!-- History items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Latency -->
+                <div class="panel latency-panel">
+                    <div class="panel-header">
+                        <span>LATENCY (UI)</span>
+                        <span class="subtext">Measured, not assumed</span>
+                    </div>
+                    <div class="latency-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">THROUGHPUT</span>
+                            <span class="stat-value">10.4 <small>fps</small></span>
+                        </div>
+                        <div class="stat-box end-to-end">
+                            <span class="stat-label">END TO END</span>
+                            <span class="stat-value" id="endToEndLatency">0.0 <small>ms</small></span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">LANDMARKS</span>
+                            <span class="stat-value">93.2 <small>ms</small></span>
+                        </div>
+                        <div class="stat-box inference">
+                            <span class="stat-label">INFERENCE</span>
+                            <span class="stat-value" id="inferenceLatency">0.0 <small>ms</small></span>
+                        </div>
+                    </div>
+                    <div class="latency-footer">
+                        <span>Frames: <strong id="frameCountTotal">0</strong></span>
+                        <span>Predictions: <strong id="predCountTotal">0</strong></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

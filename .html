@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISL Project Frameworks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBeige: '#f4ede6',
+            brandDark: '#1c273c',
+            brandOrange: '#f26e22'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-brandBeige min-h-screen p-10 font-sans text-brandDark">
+
+  <!-- ==========================================
+       SECTION 1: THE PROCESS FLOW (Source 8)
+       ========================================== -->
+  <div class="max-w-6xl mx-auto mb-20">
+    <h2 class="text-2xl font-bold mb-8 text-center">Project Workflow</h2>
+    
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+      
+      <!-- Step 1 -->
+      <div class="bg-white rounded-xl p-8 w-full lg:w-1/4 shadow-sm min-h-[280px] relative">
+        <div class="text-gray-300 font-bold text-3xl mb-4">01</div>
+        <div class="w-16 h-16 bg-brandDark rounded-full flex items-center justify-center mb-6">
+          <i class="fa-solid fa-hands text-brandOrange text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-4">Hand Tracking</h3>
+        <p class="text-sm text-gray-600">MediaPipe locates and tracks 21 hand landmarks per frame in real time.</p>
+        <!-- Arrow -->
+        <div class="hidden lg:flex absolute -right-6 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-brandOrange rounded-full items-center justify-center text-white z-10 border-4 border-brandBeige">
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bg-white rounded-xl p-8 w-full lg:w-1/4 shadow-sm min-h-[280px] relative">
+        <div class="text-gray-300 font-bold text-3xl mb-4">02</div>
+        <div class="w-16 h-16 bg-brandDark rounded-full flex items-center justify-center mb-6">
+          <i class="fa-solid fa-database text-brandOrange text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-4">Data Collection</h3>
+        <p class="text-sm text-gray-600">Landmark coordinates are captured and labeled for each gesture class.</p>
+        <!-- Arrow -->
+        <div class="hidden lg:flex absolute -right-6 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-brandOrange rounded-full items-center justify-center text-white z-10 border-4 border-brandBeige">
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="bg-white rounded-xl p-8 w-full lg:w-1/4 shadow-sm min-h-[280px] relative">
+        <div class="text-gray-300 font-bold text-3xl mb-4">03</div>
+        <div class="w-16 h-16 bg-brandDark rounded-full flex items-center justify-center mb-6">
+          <i class="fa-solid fa-brain text-brandOrange text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-4">Model Training</h3>
+        <p class="text-sm text-gray-600">A deep-learning model learns to classify gestures from landmark data.</p>
+        <!-- Arrow -->
+        <div class="hidden lg:flex absolute -right-6 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-brandOrange rounded-full items-center justify-center text-white z-10 border-4 border-brandBeige">
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="bg-white rounded-xl p-8 w-full lg:w-1/4 shadow-sm min-h-[280px]">
+        <div class="text-gray-300 font-bold text-3xl mb-4">04</div>
+        <div class="w-16 h-16 bg-brandDark rounded-full flex items-center justify-center mb-6">
+          <i class="fa-solid fa-volume-high text-brandOrange text-2xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-4">Real-Time Detection</h3>
+        <p class="text-sm text-gray-600">The trained model predicts gestures live and triggers text + speech output.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================
+       SECTION 2: TECH STACK GRID (Source 6)
+       ========================================== -->
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8 text-center">AI & Machine Learning Frameworks</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- MediaPipe -->
+      <div class="bg-white rounded-xl p-6 shadow-sm flex flex-col justify-center">
+        <div class="w-14 h-14 bg-brandDark rounded-full flex items-center justify-center mb-4">
+          <i class="fa-solid fa-camera text-brandOrange text-xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">MediaPipe</h3>
+        <p class="text-xs text-gray-600">Real-time hand landmark detection & tracking</p>
+      </div>
+
+      <!-- TensorFlow -->
+      <div class="bg-white rounded-xl p-6 shadow-sm flex flex-col justify-center">
+        <div class="w-14 h-14 bg-brandDark rounded-full flex items-center justify-center mb-4">
+          <i class="fa-solid fa-brain text-brandOrange text-xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">TensorFlow / Keras</h3>
+        <p class="text-xs text-gray-600">Deep-learning model for gesture classification</p>
+      </div>
+
+      <!-- OpenCV -->
+      <div class="bg-white rounded-xl p-6 shadow-sm flex flex-col justify-center">
+        <div class="w-14 h-14 bg-brandDark rounded-full flex items-center justify-center mb-4">
+          <i class="fa-solid fa-laptop-code text-brandOrange text-xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">OpenCV</h3>
+        <p class="text-xs text-gray-600">Video capture and image processing</p>
+      </div>
+
+      <!-- scikit-learn -->
+      <div class="bg-white rounded-xl p-6 shadow-sm flex flex-col justify-center">
+        <div class="w-14 h-14 bg-brandDark rounded-full flex items-center justify-center mb-4">
+          <i class="fa-solid fa-chart-line text-brandOrange text-xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">scikit-learn</h3>
+        <p class="text-xs text-gray-600">Data preprocessing and evaluation metrics</p>
+      </div>
+
+      <!-- gTTS -->
+      <div class="bg-white rounded-xl p-6 shadow-sm flex flex-col justify-center">
+        <div class="w-14 h-14 bg-brandDark rounded-full flex items-center justify-center mb-4">
+          <i class="fa-solid fa-volume-high text-brandOrange text-xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">gTTS / pyttsx3</h3>
+        <p class="text-xs text-gray-600">Converts recognized gestures into spoken audio</p>
+      </div>
+
+      <!-- Streamlit -->
+      <div class="bg-white rounded-xl p-6 shadow-sm flex flex-col justify-center">
+        <div class="w-14 h-14 bg-brandDark rounded-full flex items-center justify-center mb-4">
+          <i class="fa-solid fa-file-code text-brandOrange text-xl"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Streamlit</h3>
+        <p class="text-xs text-gray-600">Interactive UI for demoing the model</p>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
