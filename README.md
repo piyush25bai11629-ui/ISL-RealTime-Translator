@@ -2,7 +2,7 @@
 > **Real-Time Indian Sign Language Recognition & Translation Engine powered by Deep Learning, MediaPipe, and Natural Voice Synthesis.**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-[![Open Source](https://img.shields.io/badge/Open_Source-100%25-brightgreen.svg)](https://github.com)
+[![Open Source](https://img.shields.io/badge/Open_Source-100%25-brightgreen.svg)](https://github.com/piyush25bai11629-ui/ISL-RealTime-Translator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Framework](https://img.shields.io/badge/Computer_Vision-MediaPipe_21_Landmarks-06b6d4.svg)](https://mediapipe.dev)
 [![AI Architecture](https://img.shields.io/badge/Model-CNN_%2B_LSTM-f59e0b.svg)](https://tensorflow.org)
@@ -24,13 +24,13 @@ Mainstream commercial speech-to-text and AI tools predominantly focus on **Ameri
 
 ## 🚀 Free Deployment on Vercel (1-Click)
 
-The project includes an optimized static build (`index.html`, `css/style.css`, `js/app.js`, `vercel.json`) that can be hosted **100% free forever on Vercel's global edge network**:
+The project includes an optimized static build (`index.html`, `css/style.css`, `js/app.js`, `vercel.json`) that is hosted **100% free on Vercel's global edge network**:
 
 ### Method A: Deploy via GitHub (Recommended)
 1. Push this repository to your GitHub account:
    ```bash
    git add .
-   git commit -m "feat: dedicated website with bookmarks, gallery, and vercel config"
+   git commit -m "feat: complete dedicated website with bookmarks, gallery, and vercel config"
    git push origin main
    ```
 2. Navigate to [vercel.com/new](https://vercel.com/new).
@@ -99,7 +99,7 @@ To use your physical webcam for live sign detection and speech:
 
 1. **Clone the repository and set up a virtual environment**:
    ```bash
-   git clone https://github.com/your-username/ISL-RealTime-Translator.git
+   git clone https://github.com/piyush25bai11629-ui/ISL-RealTime-Translator.git
    cd ISL-RealTime-Translator
    python -m venv venv
    # On Windows:
