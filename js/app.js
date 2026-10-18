@@ -11,6 +11,7 @@ import {
   GALLERY_ITEMS,
   ADVOCACY_RESOURCES
 } from './landmarks-data.js';
+import { RealTimeWebcamTracker } from './webcam-tracker.js';
 
 // ==========================================
 // 1. STATE & STORAGE MANAGEMENT
@@ -912,6 +913,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderBookmarks();
   setupGalleryModal();
   setupGlobalEvents();
+
+  // Initialize Real-Time Webcam Gesture Tracker
+  const webcamTracker = new RealTimeWebcamTracker();
 
   // Subscribe bookmark manager to updates
   bookmarkStore.subscribe(() => {
