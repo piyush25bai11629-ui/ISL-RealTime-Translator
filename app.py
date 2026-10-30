@@ -6,9 +6,9 @@ from gtts import gTTS
 import pygame
 import os
 import threading
-from flask import Flask, render_template, Response, jsonify
+from flask import Flask, render_template, Response, jsonify, send_from_directory
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.', static_url_path='')
 
 # Initialize Pygame Mixer for Audio Playback
 pygame.mixer.init()
@@ -143,7 +143,23 @@ def generate_frames():
             
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return send_from_directory('.', 'index.html')
+
+@app.route('/js/<path:filename>')
+def serve_js(filename):
+    return send_from_directory('js', filename)
+
+@app.route('/css/<path:filename>')
+def serve_css(filename):
+    return send_from_directory('css', filename)
+
+@app.route('/audio/<path:filename>')
+def serve_audio(filename):
+    return send_from_directory('audio', filename)
+
+@app.route('/images/<path:filename>')
+def serve_images(filename):
+    return send_from_directory('images', filename)
 
 @app.route('/video_feed')
 def video_feed():

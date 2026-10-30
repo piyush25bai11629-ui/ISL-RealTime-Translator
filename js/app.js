@@ -11,7 +11,7 @@ import {
   GALLERY_ITEMS,
   ADVOCACY_RESOURCES
 } from './landmarks-data.js';
-import { RealTimeWebcamTracker } from './webcam-tracker.js';
+import { DashboardWebcamEngine } from './webcam-tracker.js';
 
 // ==========================================
 // 1. STATE & STORAGE MANAGEMENT
@@ -899,6 +899,21 @@ function setupGlobalEvents() {
       link.addEventListener('click', () => navMenu.classList.remove('mobile-open'));
     });
   }
+
+  // Vercel Deployment Modal handlers
+  const openDeployBtn = document.getElementById('openDeployGuideBtn');
+  const deployModal = document.getElementById('deployModal');
+  const closeDeployBtn = document.getElementById('closeDeployModalBtn');
+  if (openDeployBtn && deployModal) {
+    openDeployBtn.addEventListener('click', () => {
+      deployModal.showModal();
+    });
+  }
+  if (closeDeployBtn && deployModal) {
+    closeDeployBtn.addEventListener('click', () => {
+      deployModal.close();
+    });
+  }
 }
 
 // ==========================================
@@ -915,7 +930,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupGlobalEvents();
 
   // Initialize Real-Time Webcam Gesture Tracker
-  const webcamTracker = new RealTimeWebcamTracker();
+  const webcamEngine = new DashboardWebcamEngine();
 
   // Subscribe bookmark manager to updates
   bookmarkStore.subscribe(() => {

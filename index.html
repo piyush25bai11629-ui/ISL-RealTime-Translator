@@ -1,29 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ISL Real-Time Translator • Indian Sign Language AI Engine</title>
-  <meta name="description" content="AI-powered real-time Indian Sign Language (ISL) recognition engine translating visual gestures into bilingual Hindi & English speech and text. Built with MediaPipe and Deep Learning to bridge communication barriers for India's 63 million deaf citizens.">
-  <meta name="keywords" content="Indian Sign Language, ISL Translator, MediaPipe, Deaf Accessibility, AI for Social Good, Real-Time Gesture Recognition, Vercel Free Deploy">
-  <meta name="author" content="ISL AI Research Lab">
+  <title>ISL Real-Time Translator • Gesture Webcam &amp; Dedicated Portal</title>
+  <meta name="description" content="Real-Time Indian Sign Language Recognition &amp; Translation Engine using Deep Learning, MediaPipe 21 Hand Landmarks, and Spoken Hindi/English Speech Synthesis.">
 
-  <!-- Open Graph / Social Sharing -->
-  <meta property="og:title" content="ISL Real-Time Translator • Indian Sign Language AI Engine">
-  <meta property="og:description" content="Translating Indian Sign Language into natural voice & text in real-time. Addressing critical communication challenges for 63M+ deaf people.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="images/isl_hands_ai.jpg">
-
-  <!-- Favicon & Fonts -->
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤟</text></svg>">
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Font Awesome Icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- MediaPipe Hands & Camera Utils for Live In-Browser Webcam AI -->
+  <!-- MediaPipe Hands & Camera Utils for In-Browser WebRTC AI -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 
@@ -32,546 +26,613 @@
 </head>
 <body>
 
-  <!-- Skip Navigation for Accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
   <!-- ==========================================================================
-       HEADER & NAVIGATION BAR
+       TOP STICKY PORTAL NAVBAR
        ========================================================================== -->
-  <header class="site-header">
-    <div class="container nav-wrapper">
-      <a href="#hero" class="brand-logo" aria-label="ISL Translator Home">
-        <div class="logo-badge">ISL</div>
-        <div class="logo-text-group">
-          <h1>ISL Translator</h1>
-          <p>Real-Time Vision &amp; Speech Engine</p>
-        </div>
-      </a>
+  <nav class="portal-navbar" aria-label="Portal Navigation">
+    <div class="portal-nav-content">
+      <div class="portal-nav-left">
+        <a href="#webcam-app" class="portal-logo-box">ISL</a>
+        <ul class="portal-nav-links">
+          <li><a href="#webcam-app" class="portal-nav-link" style="color: var(--accent-blue); font-weight: 700;"><i class="fa-solid fa-camera"></i> Live Webcam</a></li>
+          <li><a href="#sign-studio" class="portal-nav-link"><i class="fa-solid fa-hand"></i> ISL Studio</a></li>
+          <li><a href="#workflow" class="portal-nav-link"><i class="fa-solid fa-diagram-project"></i> Workflow</a></li>
+          <li><a href="#tech-stack" class="portal-nav-link"><i class="fa-solid fa-microchip"></i> Frameworks</a></li>
+          <li><a href="#deaf-challenges" class="portal-nav-link"><i class="fa-solid fa-heart-pulse"></i> Deaf Struggles</a></li>
+          <li><a href="#gallery" class="portal-nav-link"><i class="fa-solid fa-images"></i> Gallery</a></li>
+          <li><a href="#bookmarks-hub" class="portal-nav-link"><i class="fa-solid fa-bookmark"></i> Bookmarks</a></li>
+          <li><a href="#advocacy" class="portal-nav-link"><i class="fa-solid fa-phone"></i> Helplines</a></li>
+        </ul>
+      </div>
 
-      <!-- Desktop & Mobile Navigation Links -->
-      <nav id="navMenu" class="nav-menu" aria-label="Main Navigation">
-        <a href="#live-webcam" class="nav-link" style="color: var(--accent-cyan); font-weight: 700;"><i class="fa-solid fa-camera"></i> Live Webcam</a>
-        <a href="#about" class="nav-link">About Project</a>
-        <a href="#deaf-challenges" class="nav-link">Deaf Community Struggles</a>
-        <a href="#sign-studio" class="nav-link">Sign Studio &amp; Voice</a>
-        <a href="#gallery" class="nav-link">Visual Gallery</a>
-        <a href="#bookmarks-hub" class="nav-link">Bookmarks</a>
-        <a href="#advocacy" class="nav-link">Helplines</a>
-        <a href="#deploy" class="nav-link">Deploy Guide</a>
-      </nav>
-
-      <!-- Action Tools -->
-      <div class="nav-actions">
-        <!-- Theme Mode Toggle -->
-        <button id="themeToggleBtn" class="btn-icon" aria-label="Switch Theme Mode" title="Switch Theme">
-          <i class="fa-solid fa-sun"></i>
+      <div class="portal-nav-actions">
+        <button id="openDeployGuideBtn" class="portal-bookmark-btn" style="border-color: rgba(59, 130, 246, 0.4);" aria-label="Deploy to Vercel Guide">
+          <i class="fa-solid fa-cloud-arrow-up" style="color: var(--accent-blue);"></i>
+          <span>Deploy on Vercel</span>
         </button>
-
-        <!-- Bookmarks Drawer Trigger -->
-        <button id="openBookmarksBtn" class="bookmark-nav-btn" aria-label="Open Saved Bookmarks Drawer">
-          <i class="fa-solid fa-bookmark"></i>
+        <button id="openBookmarksBtn" class="portal-bookmark-btn" aria-label="View Saved Bookmarks">
+          <i class="fa-solid fa-bookmark" style="color: var(--accent-amber);"></i>
           <span>Saved</span>
-          <span id="bookmarkCountBadge" class="bookmark-badge">0</span>
-        </button>
-
-        <!-- Mobile Toggle Button -->
-        <button id="mobileMenuBtn" class="mobile-toggle" aria-label="Toggle navigation menu">
-          <i class="fa-solid fa-bars"></i>
+          <span id="bookmarkCountBadge" class="badge-count">0</span>
         </button>
       </div>
     </div>
-  </header>
+  </nav>
 
   <!-- ==========================================================================
-       MAIN CONTENT
+       SECTION 1: ICONIC REAL-TIME GESTURE WEBCAM DASHBOARD
        ========================================================================== -->
-  <main id="main-content">
+  <section id="webcam-app" class="dashboard-section">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-titles">
+        <h1>
+          <i class="fa-solid fa-hands-asl-interpreting" style="color: var(--accent-blue);"></i>
+          ISL Real-Time Translator
+        </h1>
+        <p>Neuromorphic frameworks • CNN + LSTM • single RGB webcam • in-browser WebRTC AI</p>
+      </div>
+      <div class="header-status">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span> Recognizing
+        </div>
+        <button id="backendBtn" class="backend-btn" title="Toggle between in-browser AI and local Flask backend">
+          Use backend
+        </button>
+      </div>
+    </header>
 
-    <!-- HERO SECTION -->
-    <section id="hero" class="hero-section">
-      <div class="hero-glow-blob" aria-hidden="true"></div>
-      <div class="container hero-grid">
-        
-        <!-- Left Hero Copy -->
-        <div class="hero-copy">
-          <div class="hero-badge-pill">
+    <!-- Webcam Mode Switcher -->
+    <div class="webcam-mode-bar">
+      <button id="modeLiveBtn" class="mode-tab active" title="Translate Indian Sign Language in real time">
+        <i class="fa-solid fa-bolt"></i> ⚡ Real-Time Recognition
+      </button>
+      <button id="modeRecordBtn" class="mode-tab" title="Record 30-frame gesture dataset clips matching 02_collect_data.py">
+        <i class="fa-solid fa-video"></i> 📹 Gesture Recorder (Data Collection)
+      </button>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="main-grid">
+      <!-- Left Column: Camera and Controls -->
+      <div class="left-col">
+        <!-- Quick Simulation & Instant Testing Bar -->
+        <div class="simulate-bar">
+          <span class="simulate-bar-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Test Signs:</span>
+          <button class="simulate-btn" data-simulate-sign="Hello">👋 Hello (Namaste)</button>
+          <button class="simulate-btn" data-simulate-sign="ThankYou">🙏 Thank You (Dhanyawaad)</button>
+          <button class="simulate-btn" data-simulate-sign="Yes">✊ Yes (Haan)</button>
+          <button class="simulate-btn" data-simulate-sign="No">☝️ No (Nahi)</button>
+          <button class="simulate-btn" data-simulate-sign="ILoveYou">🤟 I Love You</button>
+        </div>
+
+        <div class="video-panel">
+          <div class="fps-badge">
+            <span class="pulse-dot red-dot"></span>
+            <span id="fpsDisplay">30.0 fps</span>
+          </div>
+
+          <!-- Video Elements -->
+          <video id="videoElement" playsinline autoplay muted></video>
+          <canvas id="gestureCanvas"></canvas>
+          <img id="videoFeed" src="" alt="Python Video Feed" style="display: none;">
+
+          <!-- Recording Banner Overlay -->
+          <div id="recordingOverlay" class="recording-banner-overlay" style="display: none;">
+            <div id="recordingOverlayText" class="recording-banner-text">SHOW YOUR HAND FOR RECORDING...</div>
+            <div id="recordingCountdownNum" class="recording-countdown-num">3</div>
+          </div>
+
+          <!-- Stopped Placeholder -->
+          <div id="cameraPlaceholder" class="placeholder">
+            <div class="camera-icon-pulse">
+              <i class="fa-solid fa-hands-asl-interpreting"></i>
+            </div>
+            <h3 style="font-size: 1.25rem; font-family: 'Outfit', sans-serif;">Webcam Recognition Ready</h3>
+            <p>Click below to grant camera access and start real-time Indian Sign Language detection right in your browser.</p>
+            <button id="heroStartCameraBtn" class="big-start-btn">
+              <i class="fa-solid fa-video"></i> Start Webcam (1-Click)
+            </button>
+            <div class="quick-badges-row">
+              <span class="quick-badge"><i class="fa-solid fa-check"></i> 100% In-Browser AI</span>
+              <span class="quick-badge"><i class="fa-solid fa-bolt"></i> No Terminal Needed</span>
+              <span class="quick-badge"><i class="fa-solid fa-globe"></i> Free Vercel Hosting</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Recognition Controls Panel -->
+        <div id="liveControlsPanel" class="controls-panel">
+          <div class="controls-left">
+            <button id="toggleCameraBtn" class="control-btn">Start</button>
+            <button id="resetBtn" class="control-btn-alt">Reset</button>
+
+            <label class="checkbox-container">
+              <input type="checkbox" id="landmarkOverlay" checked>
+              <span>Landmark overlay</span>
+            </label>
+
+            <label class="checkbox-container">
+              <input type="checkbox" id="speakPredictions" checked>
+              <span>Speak Hindi Audio</span>
+            </label>
+
+            <button id="snapshotBtn" class="control-btn-alt" title="Capture and download snapshot photo">
+              <i class="fa-solid fa-camera"></i> Snapshot
+            </button>
+
+            <button id="fullscreenBtn" class="control-btn-alt" title="Toggle Fullscreen Theater View">
+              <i class="fa-solid fa-expand"></i> Theater
+            </button>
+          </div>
+          <button id="exportCorrectionsBtn" class="export-btn">
+            Export corrections (<span id="correctionCount">0</span>)
+          </button>
+        </div>
+
+        <!-- Gesture Recorder Controls Panel (Active in Record Mode) -->
+        <div id="recordControlsPanel" class="controls-panel record-mode-panel" style="display: none;">
+          <div class="record-controls-row">
+            <div class="record-input-group">
+              <label for="recordGestureAction"><i class="fa-solid fa-tag"></i> Gesture:</label>
+              <select id="recordGestureAction" class="record-select">
+                <option value="Hello">Hello (नमस्ते)</option>
+                <option value="ILoveYou">ILoveYou (प्यार)</option>
+                <option value="No">No (नहीं)</option>
+                <option value="ThankYou">Thank You (धन्यवाद)</option>
+                <option value="Yes">Yes (हाँ)</option>
+                <option value="Water">Water (पानी)</option>
+                <option value="Custom">Custom Gesture...</option>
+              </select>
+            </div>
+
+            <div class="record-input-group">
+              <label for="recordSequenceNum"><i class="fa-solid fa-hashtag"></i> Clip #:</label>
+              <input type="number" id="recordSequenceNum" value="1" min="1" max="100" class="record-num-input">
+            </div>
+
+            <button id="startRecordingSequenceBtn" class="control-btn record-action-btn" title="Start 30-frame sequence capture with 3-second countdown">
+              <i class="fa-solid fa-circle-dot"></i> Record 30 Frames
+            </button>
+          </div>
+
+          <!-- Recording Progress Bar -->
+          <div id="recordingProgressBox" class="recording-progress-box" style="display: none;">
+            <div class="recording-progress-header">
+              <span id="recordingStatusLabel"><i class="fa-solid fa-spinner fa-spin"></i> Preparing...</span>
+              <span id="recordingFrameCount">0 / 30 frames</span>
+            </div>
+            <div class="recording-bar-track">
+              <div id="recordingBarFill" class="recording-bar-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <span id="footerNoteText">Isolated sign recognition over a 30-frame window at 150 Keypoints • 21 MediaPipe 3D Landmarks</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Stats, Info & Recording Studio -->
+      <div class="right-col">
+        <!-- LIVE MODE PANELS -->
+        <div id="liveRightPanels">
+          <!-- Current Sign -->
+          <div class="panel current-sign-panel">
+            <div class="panel-header">
+              <span>CURRENT SIGN</span>
+              <span class="subtext" id="confidenceSubtext">Waiting...</span>
+            </div>
+            <div class="sign-box">
+              <h2 id="gestureText">Waiting...</h2>
+              <div id="hindiText" class="hindi-subtext"></div>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar" id="confidenceBar"></div>
+              </div>
+              <button id="replayVoiceBtn" class="replay-audio-btn">
+                <i class="fa-solid fa-volume-high"></i> Listen Again
+              </button>
+            </div>
+          </div>
+
+          <!-- Sentence -->
+          <div class="panel sentence-panel">
+            <div class="panel-header">
+              <span>SENTENCE</span>
+              <div class="sentence-actions">
+                <span id="speakingStatus">Idle</span>
+                <button id="speakSentenceBtn" style="background: none; border: 1px solid var(--panel-border); color: var(--text-secondary); border-radius: 4px; padding: 2px 6px; font-size: 0.75rem; cursor: pointer;"><i class="fa-solid fa-volume-high"></i> Speak All</button>
+                <button id="copySentenceBtn" style="background: none; border: 1px solid var(--panel-border); color: var(--text-secondary); border-radius: 4px; padding: 2px 6px; font-size: 0.75rem; cursor: pointer;"><i class="fa-regular fa-copy"></i> Copy</button>
+                <button id="clearSentenceBtn">Clear</button>
+              </div>
+            </div>
+            <div class="sentence-box">
+              <p id="sentenceText">No signs detected yet.</p>
+            </div>
+            <div class="history-tags" id="historyTags">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Target Practice Challenge -->
+          <div class="practice-challenge-box">
+            <div class="practice-header">
+              <span class="practice-badge">Target Practice</span>
+              <span style="font-size: 0.75rem; color: var(--text-dim);">Practice Challenge</span>
+            </div>
+            <div class="practice-target-text">Show Sign: <span style="color: var(--accent-blue);" id="practiceTargetName">Hello (Namaste)</span></div>
+            <div id="practiceStatusText" class="practice-status"><i class="fa-solid fa-clock"></i> Show your hand to webcam to match...</div>
+          </div>
+
+          <!-- Latency & Telemetry -->
+          <div class="panel latency-panel">
+            <div class="panel-header">
+              <span>LATENCY (UI)</span>
+              <span class="subtext">Measured, not assumed</span>
+            </div>
+            <div class="latency-grid">
+              <div class="stat-box">
+                <span class="stat-label">THROUGHPUT</span>
+                <span class="stat-value" id="throughputVal">10.4 <small>fps</small></span>
+              </div>
+              <div class="stat-box end-to-end">
+                <span class="stat-label">END TO END</span>
+                <span class="stat-value" id="endToEndLatency">0.0 <small>ms</small></span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-label">LANDMARKS</span>
+                <span class="stat-value" id="landmarksLatency">93.2 <small>ms</small></span>
+              </div>
+              <div class="stat-box inference">
+                <span class="stat-label">INFERENCE</span>
+                <span class="stat-value" id="inferenceLatency">0.0 <small>ms</small></span>
+              </div>
+            </div>
+            <div class="latency-footer">
+              <span>Frames: <strong id="frameCountTotal">0</strong></span>
+              <span>Predictions: <strong id="predCountTotal">0</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECORD MODE PANELS (Active when Recording tab is selected) -->
+        <div id="recordRightPanels" style="display: none;">
+          <!-- Recorded Clips Studio -->
+          <div class="panel current-sign-panel">
+            <div class="panel-header">
+              <span><i class="fa-solid fa-database"></i> RECORDED DATASET CLIPS</span>
+              <span class="subtext"><span id="recordedClipsCount">0</span> clips captured</span>
+            </div>
+            <div class="recorded-clips-container">
+              <div id="recordedClipsList" class="recorded-clips-list">
+                <div class="empty-clips-msg">
+                  <i class="fa-solid fa-film"></i>
+                  <p>No gesture clips recorded yet.</p>
+                  <small>Select a gesture, click <strong>Start</strong> camera, and press <strong>Record 30 Frames</strong> to save training data.</small>
+                </div>
+              </div>
+            </div>
+            <div class="record-actions-footer">
+              <button id="downloadDatasetJsonBtn" class="control-btn" style="width: 100%; font-size: 0.85rem; padding: 8px;">
+                <i class="fa-solid fa-file-arrow-down"></i> Export Dataset (.JSON Keypoints)
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Keypoints Inspector -->
+          <div class="panel latency-panel">
+            <div class="panel-header">
+              <span>LIVE KEYPOINTS (21 LANDMARKS)</span>
+              <span class="subtext">63 Normalized Coordinates (x,y,z)</span>
+            </div>
+            <div id="keypointsInspector" class="keypoints-inspector">
+              <code>Waiting for hand detection to inspect 3D landmark array...</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 1.5: INTERACTIVE ISL SIGN STUDIO & 3D SKELETAL INSPECTOR
+       ========================================================================== -->
+  <section id="sign-studio" class="content-section" style="border-top: 1px solid var(--panel-border);">
+    <div class="section-title-box">
+      <h2>ISL Sign Reference Studio &amp; 3D Landmark Inspector</h2>
+      <p>Explore all 5 core Indian Sign Language gestures with 3D joint visualization, step-by-step guidance, and authentic Hindi audio.</p>
+    </div>
+
+    <div class="studio-layout">
+      <!-- Left: Interactive 3D Skeleton Canvas -->
+      <div class="studio-canvas-card">
+        <div class="studio-canvas-header">
+          <div class="canvas-title-group">
             <span class="pulse-dot"></span>
-            <span>Assistive AI for India's 63 Million Deaf Community</span>
+            <span id="canvasSignName">3D Joint Skeleton (21 Landmarks)</span>
           </div>
-          <h1 class="hero-title">
-            Empowering Silence into <span class="gradient-text">Spoken Voice</span> with Vision AI
-          </h1>
-          <p class="hero-subtitle">
-            An open, accessible Indian Sign Language (ISL) neural engine. Translates continuous 3D hand gestures into bilingual Hindi speech and real-time text in milliseconds — running entirely on standard webcams and browsers without specialized hardware.
-          </p>
-
-          <div class="hero-cta-group">
-            <a href="#live-webcam" class="btn btn-primary" style="background: linear-gradient(135deg, #f43f5e, #f59e0b); box-shadow: 0 4px 20px rgba(244, 63, 94, 0.35);">
-              <i class="fa-solid fa-camera"></i> Launch Live Gesture Webcam
-            </a>
-            <a href="#sign-studio" class="btn btn-secondary">
-              <i class="fa-solid fa-hands-asl-interpreting"></i> Sign Studio
-            </a>
-            <a href="#deaf-challenges" class="btn btn-amber">
-              <i class="fa-solid fa-heart-pulse"></i> Understand the Barrier
-            </a>
-          </div>
-
-          <!-- Impact Metrics -->
-          <div class="hero-stats-row">
-            <div class="stat-item">
-              <h3>63M+</h3>
-              <p>Deaf Population in India</p>
-            </div>
-            <div class="stat-item">
-              <h3>1:200k</h3>
-              <p>Certified Interpreter Ratio</p>
-            </div>
-            <div class="stat-item">
-              <h3>21</h3>
-              <p>MediaPipe 3D Keypoints</p>
-            </div>
-            <div class="stat-item">
-              <h3>&lt;50ms</h3>
-              <p>Inference Latency</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Hero Interactive HUD Visualizer -->
-        <div class="hero-visual-hud" aria-label="Interactive Hand Landmark Simulator">
-          <div class="hud-header">
-            <span class="hud-tag">
-              <span class="pulse-dot"></span> Live Skeletal Tracking HUD
-            </span>
-            <span class="hud-fps">FPS: 30.0 | 21 JOINTS</span>
-          </div>
-
-          <div class="canvas-wrapper">
-            <canvas id="landmarkCanvas" aria-label="Hand landmark skeletal canvas"></canvas>
-          </div>
-
-          <div class="hud-bottom-bar">
-            <div id="globalAudioIndicator" class="audio-indicator" aria-live="polite">
-              <div class="audio-waves" aria-hidden="true">
-                <span></span><span></span><span></span>
-              </div>
-              <span id="audioStatusText">Voice idle (Click any sign to speak)</span>
-            </div>
-
-            <button id="startSimBtn" class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.8rem;">
-              <i class="fa-solid fa-play"></i> Auto-Play Sequence
+          <div class="studio-actions-group">
+            <button id="startSimBtn" class="control-btn-alt" style="padding: 6px 14px; font-size: 0.8rem;" title="Auto cycle through signs">
+              <i class="fa-solid fa-play"></i> Auto-Play Sign Sequence
             </button>
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- LIVE WEBCAM GESTURE TRANSLATOR SECTION -->
-    <section id="live-webcam" class="webcam-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag"><span class="pulse-dot" style="display:inline-block; margin-right:6px;"></span> Real-Time AI Camera Engine</span>
-          <h2 class="section-title">Live Gesture Webcam Translator</h2>
-          <p class="section-desc">
-            Use your actual device camera to translate Indian Sign Language gestures into spoken Hindi voice and English subtitles in real time. Runs client-side with zero external servers!
-          </p>
+        <div class="canvas-wrapper">
+          <canvas id="landmarkCanvas" class="landmark-3d-canvas"></canvas>
+          <div class="canvas-legend">
+            <span><span class="dot tip-dot"></span> Fingertips (Red)</span>
+            <span><span class="dot joint-dot"></span> Joints (Blue)</span>
+            <span><span class="dot wrist-dot"></span> Wrist Anchor (Green)</span>
+          </div>
         </div>
 
-        <div class="webcam-grid">
-          <!-- Left: Camera Viewport Card -->
-          <div class="webcam-viewport-card">
-            <div class="webcam-viewport-header">
-              <div class="webcam-live-indicator">
-                <span class="webcam-live-dot"></span>
-                <span>Live Gesture Recognition Feed</span>
-              </div>
-              <div class="webcam-metrics">
-                <span id="webcamFpsValue">0 fps</span>
-                <span>•</span>
-                <span id="webcamLatencyValue">0 ms latency</span>
-              </div>
+        <!-- Detail Box -->
+        <div class="sign-inspector-box">
+          <div class="inspector-header">
+            <div>
+              <h3 id="inspectorTitle">Hello / Namaste</h3>
+              <p id="inspectorHindi" class="inspector-hindi">नमस्ते (Namaste)</p>
             </div>
-
-            <div class="webcam-display-container">
-              <video id="webcamVideo" playsinline autoplay muted></video>
-              <canvas id="webcamCanvas"></canvas>
-              
-              <div id="webcamPlaceholder" class="webcam-placeholder">
-                <i class="fa-solid fa-video-slash"></i>
-                <h3>Webcam is Currently Idle</h3>
-                <p>Click <strong>"Start Webcam"</strong> below to turn on your camera and begin translating ISL hand gestures live in your browser.</p>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
-                  <span class="tag-pill"><i class="fa-solid fa-bolt"></i> MediaPipe 21 Landmarks</span>
-                  <span class="tag-pill"><i class="fa-solid fa-volume-high"></i> Natural Hindi Speech</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Webcam Controls Panel -->
-            <div class="webcam-controls-panel">
-              <div class="webcam-controls-left">
-                <button id="toggleWebcamBtn" class="btn btn-primary">
-                  <i class="fa-solid fa-video"></i> Start Webcam
-                </button>
-
-                <label class="webcam-checkbox-label">
-                  <input type="checkbox" id="webcamOverlayCheck" checked>
-                  <span>Landmark Overlay</span>
-                </label>
-
-                <label class="webcam-checkbox-label">
-                  <input type="checkbox" id="webcamSpeakCheck" checked>
-                  <span>Speak Predictions (Hindi)</span>
-                </label>
-              </div>
-
-              <div class="webcam-controls-right">
-                <select id="backendModeSelect" class="webcam-mode-select" aria-label="Detection Engine Mode">
-                  <option value="browser">Mode: In-Browser AI (MediaPipe Web)</option>
-                  <option value="python">Mode: Local Python Backend (localhost:5000)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Recognition Results & Sentence Builder -->
-          <div class="webcam-sidebar">
-            <!-- Current Detected Gesture -->
-            <div class="webcam-card-panel">
-              <div class="webcam-card-panel-header">
-                <span>CURRENT DETECTED SIGN</span>
-                <span id="webcamConfidenceSubtext" style="font-size: 0.8rem; color: var(--accent-emerald); font-weight: 600;">0% confidence</span>
-              </div>
-              <div class="webcam-gesture-display">
-                <h2 id="webcamGestureText">Waiting for hand...</h2>
-                <div id="webcamHindiText" class="webcam-hindi-display">हाथ दिखाएं...</div>
-                <div class="confidence-bar-outer">
-                  <div id="webcamConfidenceBar" class="confidence-fill"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Live Sentence Builder -->
-            <div class="webcam-card-panel">
-              <div class="webcam-card-panel-header">
-                <span>CONSTRUCTED SENTENCE</span>
-                <button id="clearSentenceBtn" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;">
-                  <i class="fa-solid fa-trash-can"></i> Clear
-                </button>
-              </div>
-              <div id="webcamSentenceText" class="webcam-sentence-box">
-                No signs detected yet. Start signing to translate.
-              </div>
-              <div>
-                <span style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 8px;">
-                  Recent Signs History
-                </span>
-                <div id="webcamHistoryTags" class="history-tags-container"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 1: WHAT THE PROJECT IS (ABOUT & TECH PIPELINE) -->
-    <section id="about" class="about-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Architecture &amp; Mission</span>
-          <h2 class="section-title">What is ISL Real-Time Translator?</h2>
-          <p class="section-desc">
-            Unlike commercial AI that focuses exclusively on Western American Sign Language (ASL), this platform is purpose-built for the unique grammar, dual-handed fingerspelling, and regional vocabulary of Indian Sign Language (ISL).
-          </p>
-        </div>
-
-        <!-- 4-Step Technical Workflow -->
-        <div class="about-features-grid">
-          <div class="feature-step-card">
-            <span class="step-num">01</span>
-            <div class="step-icon-box"><i class="fa-solid fa-video"></i></div>
-            <h3>RGB Video Stream</h3>
-            <p>Captures live 30 FPS video through any standard mobile or laptop camera without expensive data gloves or depth sensors.</p>
-          </div>
-
-          <div class="feature-step-card">
-            <span class="step-num">02</span>
-            <div class="step-icon-box"><i class="fa-solid fa-hand-dots"></i></div>
-            <h3>MediaPipe Landmark Tracking</h3>
-            <p>Extracts 21 three-dimensional (X, Y, Z) coordinates per hand, locating wrist anchors, knuckles, and fingertip positions.</p>
-          </div>
-
-          <div class="feature-step-card">
-            <span class="step-num">03</span>
-            <div class="step-icon-box"><i class="fa-solid fa-brain"></i></div>
-            <h3>Spatial Normalization &amp; LSTM</h3>
-            <p>Normalizes coordinates relative to the wrist anchor to eliminate camera distance bias, classified via a temporal neural network.</p>
-          </div>
-
-          <div class="feature-step-card">
-            <span class="step-num">04</span>
-            <div class="step-icon-box"><i class="fa-solid fa-volume-high"></i></div>
-            <h3>Hindi Speech &amp; Text Output</h3>
-            <p>Converts identified gestures into natural Hindi voice synthesis (gTTS) and bilingual subtitles for instantaneous conversation.</p>
-          </div>
-        </div>
-
-        <!-- Why ISL is Unique (ISL vs ASL Box) -->
-        <div class="comparison-box">
-          <div class="comparison-col isl">
-            <h4><i class="fa-solid fa-shield-halved"></i> Indian Sign Language (ISL)</h4>
-            <ul>
-              <li><i class="fa-solid fa-check text-accent-cyan"></i> Primarily two-handed alphabet and gesture configurations.</li>
-              <li><i class="fa-solid fa-check text-accent-cyan"></i> Distinct SOV (Subject-Object-Verb) grammatical framework.</li>
-              <li><i class="fa-solid fa-check text-accent-cyan"></i> Rich cultural markers for Indian courtesies (Namaste, Pranam, Dhanyawaad).</li>
-              <li><i class="fa-solid fa-check text-accent-cyan"></i> Native visual language for 63M+ deaf Indians.</li>
-            </ul>
-          </div>
-
-          <div class="comparison-col asl">
-            <h4><i class="fa-solid fa-globe"></i> American Sign Language (ASL)</h4>
-            <ul>
-              <li><i class="fa-solid fa-xmark text-dim"></i> Primarily single-handed fingerspelling system.</li>
-              <li><i class="fa-solid fa-xmark text-dim"></i> SVO (Subject-Verb-Object) sentence structure.</li>
-              <li><i class="fa-solid fa-xmark text-dim"></i> Western cultural gestures incompatible with Indian dialects.</li>
-              <li><i class="fa-solid fa-xmark text-dim"></i> Fails to interpret everyday Indian social communication.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 2: PROBLEMS FACED BY OUR DEAF COMMUNITY -->
-    <section id="deaf-challenges" class="struggle-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Human Impact &amp; Social Reality</span>
-          <h2 class="section-title">The Silent Divide: Struggles of the Deaf Community</h2>
-          <p class="section-desc">
-            In India and developing nations, millions of deaf individuals navigate daily life in an environment built exclusively for the hearing. Here are the core systemic hurdles they confront daily.
-          </p>
-        </div>
-
-        <div id="challengesGrid" class="challenges-grid">
-          <!-- Dynamically populated via app.js with bookmark support -->
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 3: INTERACTIVE SIGN STUDIO & VOICE SYNTHESIZER -->
-    <section id="sign-studio" class="studio-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Interactive Learning &amp; Audio Lab</span>
-          <h2 class="section-title">ISL Gesture Studio &amp; Natural Voice Player</h2>
-          <p class="section-desc">
-            Click any gesture card below to explore its 3D landmark skeleton on the visualizer, hear the natural Hindi pronunciation, and learn proper signing technique.
-          </p>
-        </div>
-
-        <div class="studio-grid">
-          <!-- Left: Scrollable Sign Cards -->
-          <div class="studio-left">
-            <h3>
-              <span>Core ISL Vocabulary</span>
-              <span style="font-size: 0.85rem; color: var(--text-dim); font-weight: normal;">Click to inspect</span>
-            </h3>
-            <div id="signStudioGrid" class="sign-cards-scroll">
-              <!-- Dynamically populated via app.js -->
-            </div>
-          </div>
-
-          <!-- Right: Detail Inspector -->
-          <div class="studio-inspector">
-            <div class="inspector-header">
-              <div>
-                <h2 id="inspectorTitle">Hello / Namaste</h2>
-                <div id="inspectorHindi" class="inspector-hindi-badge">नमस्ते (Namaste)</div>
-              </div>
-              <button id="inspectorBookmark" class="bookmark-btn" title="Bookmark this Sign" aria-label="Bookmark this Sign">
-                <i class="fa-regular fa-bookmark"></i>
+            <div class="inspector-btns">
+              <button id="inspectorSpeakHindi" class="listen-btn">
+                <i class="fa-solid fa-volume-high"></i> Listen Hindi
+              </button>
+              <button id="inspectorSpeakEnglish" class="listen-btn secondary">
+                <i class="fa-solid fa-volume-high"></i> Listen English
+              </button>
+              <button id="inspectorBookmark" class="bookmark-btn" style="border: 1px solid var(--panel-border); border-radius: var(--radius-sm); padding: 6px 10px; font-size: 0.8rem;">
+                <i class="fa-regular fa-bookmark"></i> Bookmark Sign
               </button>
             </div>
-
-            <p id="inspectorDesc" style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
-              The universal Indian greeting of deep respect. Hands brought together palm-to-palm in front of chest.
-            </p>
-
-            <div class="inspector-actions-row">
-              <button id="inspectorSpeakHindi" class="btn btn-primary" style="padding: 10px 18px; font-size: 0.88rem;">
-                <i class="fa-solid fa-volume-high"></i> Speak Hindi (gTTS)
-              </button>
-              <button id="inspectorSpeakEnglish" class="btn btn-secondary" style="padding: 10px 18px; font-size: 0.88rem;">
-                <i class="fa-solid fa-volume-low"></i> Speak English
-              </button>
+          </div>
+          <p id="inspectorDesc" class="inspector-desc">The universal Indian greeting of deep respect. Hands brought together palm-to-palm in front of chest.</p>
+          <div class="inspector-meta-grid">
+            <div class="meta-item">
+              <span class="meta-label"><i class="fa-solid fa-hand"></i> How to Sign:</span>
+              <p id="inspectorHow">Bring both palms together at chest level with fingers pointing upward.</p>
             </div>
-
-            <div class="inspector-instructions">
-              <div class="instruct-block">
-                <strong><i class="fa-solid fa-hand"></i> How to Sign Properly:</strong>
-                <p id="inspectorHow">Bring both palms together at chest level with fingers pointing upward. Tilt head gently forward with a welcoming smile.</p>
-              </div>
-
-              <div class="instruct-block">
-                <strong><i class="fa-solid fa-landmark"></i> Cultural Etiquette:</strong>
-                <p id="inspectorCulture">In Indian Sign Language, Namaste incorporates hands touching with open palms facing inward, symbolizing honor and equality.</p>
-              </div>
+            <div class="meta-item">
+              <span class="meta-label"><i class="fa-solid fa-landmark"></i> Cultural Context:</span>
+              <p id="inspectorCulture">In Indian Sign Language, Namaste incorporates two hands touching with open palms.</p>
             </div>
           </div>
         </div>
-
       </div>
-    </section>
 
-    <!-- SECTION 4: VISUAL SHOWCASE & IMAGE GALLERY -->
-    <section id="gallery" class="gallery-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Visual Showcases</span>
-          <h2 class="section-title">ISL Technology &amp; Community Gallery</h2>
-          <p class="section-desc">
-            Explore authentic depictions of Indian Sign Language in healthcare, schools, transit mobility, and our neural computer vision pipeline.
-          </p>
-
-          <!-- Category Filter Tabs -->
-          <div class="gallery-filters" role="tablist">
-            <button class="gallery-filter-btn active" data-category="All">All Showcases</button>
-            <button class="gallery-filter-btn" data-category="Technology">AI &amp; Landmarks</button>
-            <button class="gallery-filter-btn" data-category="Community">Healthcare &amp; Care</button>
-            <button class="gallery-filter-btn" data-category="Education">Inclusive Schools</button>
-            <button class="gallery-filter-btn" data-category="ISL Signs">Sign Gestures</button>
-          </div>
+      <!-- Right: Grid of Sign Cards -->
+      <div class="studio-cards-column">
+        <div class="cards-header">
+          <span>SELECT A SIGN TO INSPECT</span>
+          <span class="subtext">5 Core Gestures + Water</span>
         </div>
-
-        <!-- Gallery Grid -->
-        <div id="galleryGrid" class="gallery-grid">
-          <!-- Dynamically populated via app.js -->
+        <div id="signStudioGrid" class="sign-studio-grid">
+          <!-- Populated dynamically via app.js -->
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION 5: BOOKMARKS HUB -->
-    <section id="bookmarks-hub" class="bookmarks-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Saved Resources</span>
-          <h2 class="section-title">My Bookmarked Collection</h2>
-          <p class="section-desc">
-            Your saved signs, problem studies, and gallery assets are stored locally in your browser. Review them anytime or export for study.
-          </p>
-        </div>
+  <!-- ==========================================================================
+       SECTION 2: PROJECT WORKFLOW & FRAMEWORKS
+       ========================================================================== -->
+  <section id="workflow" class="content-section" style="border-top: 1px solid var(--panel-border);">
+    <div class="section-title-box">
+      <h2>Project Workflow</h2>
+      <p>How the neural pipeline transforms live video frames into spoken language in milliseconds.</p>
+    </div>
 
-        <div class="bookmarks-controls-bar">
-          <div class="bookmark-tabs">
-            <button class="bookmark-tab-btn active" data-filter="all">All Items (<span id="heroBookmarkCount">0</span>)</button>
-            <button class="bookmark-tab-btn" data-filter="sign">Signs Only</button>
-            <button class="bookmark-tab-btn" data-filter="challenge">Community Studies</button>
-            <button class="bookmark-tab-btn" data-filter="gallery">Gallery Images</button>
-          </div>
+    <div class="workflow-row">
+      <!-- Step 01 -->
+      <div class="workflow-card">
+        <span class="workflow-step-num">01</span>
+        <div class="workflow-icon"><i class="fa-solid fa-hands"></i></div>
+        <h3>Hand Tracking</h3>
+        <p>MediaPipe locates and tracks 21 three-dimensional hand landmarks per frame in real time.</p>
+      </div>
 
-          <div style="display: flex; gap: 10px;">
-            <button id="exportBookmarksBtn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">
-              <i class="fa-solid fa-download"></i> Export Data (JSON)
-            </button>
-            <button id="clearBookmarksBtn" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem; color: var(--accent-rose);">
-              <i class="fa-solid fa-trash-can"></i> Clear All
-            </button>
-          </div>
-        </div>
+      <!-- Step 02 -->
+      <div class="workflow-card">
+        <span class="workflow-step-num">02</span>
+        <div class="workflow-icon"><i class="fa-solid fa-database"></i></div>
+        <h3>Data Collection</h3>
+        <p>Landmark coordinates are normalized relative to the wrist anchor and labeled for each gesture class.</p>
+      </div>
 
-        <div id="bookmarksList" class="bookmarks-list">
-          <!-- Dynamically populated via app.js -->
-        </div>
+      <!-- Step 03 -->
+      <div class="workflow-card">
+        <span class="workflow-step-num">03</span>
+        <div class="workflow-icon"><i class="fa-solid fa-brain"></i></div>
+        <h3>Model Training</h3>
+        <p>A deep-learning CNN + LSTM model learns to classify temporal gesture sequences over a 30-frame window.</p>
+      </div>
 
-        <!-- Empty State -->
-        <div id="bookmarksEmptyState" class="empty-state">
-          <i class="fa-regular fa-bookmark"></i>
-          <h3>No bookmarks saved yet</h3>
-          <p>Click the bookmark icon <i class="fa-regular fa-bookmark"></i> on any sign, challenge article, or gallery item to save it here.</p>
+      <!-- Step 04 -->
+      <div class="workflow-card">
+        <span class="workflow-step-num">04</span>
+        <div class="workflow-icon"><i class="fa-solid fa-volume-high"></i></div>
+        <h3>Real-Time Detection</h3>
+        <p>The trained model predicts gestures live and triggers instant bilingual text + spoken Hindi audio.</p>
+      </div>
+    </div>
+
+    <!-- AI & ML Frameworks -->
+    <div id="tech-stack" class="section-title-box" style="margin-top: 40px;">
+      <h2>AI &amp; Machine Learning Frameworks</h2>
+      <p>Modern computer vision and neural technologies powering this assistive tool.</p>
+    </div>
+
+    <div class="frameworks-grid">
+      <div class="framework-card">
+        <div class="framework-icon"><i class="fa-solid fa-camera"></i></div>
+        <div class="framework-info">
+          <h4>MediaPipe</h4>
+          <p>Real-time 21-point hand landmark detection &amp; skeletal tracking</p>
         </div>
       </div>
-    </section>
 
-    <!-- SECTION 6: COMMUNITY ADVOCACY & HELPLINES -->
-    <section id="advocacy" class="advocacy-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Support Networks</span>
-          <h2 class="section-title">Deaf Advocacy &amp; Emergency Helplines</h2>
-          <p class="section-desc">
-            Verified national institutions, emergency dispatch channels, and civil rights groups serving India's Deaf community.
-          </p>
+      <div class="framework-card">
+        <div class="framework-icon"><i class="fa-solid fa-brain"></i></div>
+        <div class="framework-info">
+          <h4>TensorFlow / Keras</h4>
+          <p>Deep-learning CNN &amp; LSTM temporal classification models</p>
         </div>
-
-        <div class="advocacy-grid">
-          <div class="advocacy-card">
-            <span class="advocacy-type">Government Body</span>
-            <h4>ISLRTC New Delhi</h4>
-            <p>Indian Sign Language Research and Training Centre develops standard ISL curriculum, dictionaries, and certified interpreter exams.</p>
-            <span class="advocacy-contact"><i class="fa-solid fa-envelope"></i> info@islrtc.nic.in</span>
-            <a href="http://www.islrtc.nic.in" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.82rem;">
-              Visit Official Portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-
-          <div class="advocacy-card">
-            <span class="advocacy-type">Civil Rights Group</span>
-            <h4>National Association of the Deaf (NAD)</h4>
-            <p>Representing deaf individuals across 28 states, championing sign language accessibility, equal job quotas, and judicial fairness.</p>
-            <span class="advocacy-contact"><i class="fa-solid fa-phone"></i> Helpline &amp; WhatsApp Support</span>
-            <a href="https://nadindia.org" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.82rem;">
-              Learn More <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-
-          <div class="advocacy-card">
-            <span class="advocacy-type">Emergency Lifeline</span>
-            <h4>National Emergency 112 SOS</h4>
-            <p>India's unified emergency number with SMS and video dispatch capabilities for hearing-impaired and speech-impaired citizens.</p>
-            <span class="advocacy-contact"><i class="fa-solid fa-comment-sms"></i> Emergency SMS: 112</span>
-            <a href="https://112.gov.in" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="padding: 8px 14px; font-size: 0.82rem;">
-              Emergency Guidelines <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- SECTION 7: VERCEL DEPLOYMENT & LOCAL RUN GUIDE -->
-        <div id="deploy" class="deployment-box">
-          <div class="deploy-steps">
-            <span class="section-tag" style="color: var(--accent-emerald);">Free Hosting</span>
-            <h3 style="font-size: 1.8rem; margin-bottom: 10px;">Deploy Instantly to Vercel (100% Free)</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem;">
-              This dedicated web experience is pre-configured with <code>vercel.json</code> and zero backend build steps. It deploys directly to Vercel's global CDN in seconds!
-            </p>
-            <ol>
-              <li>Push this project to your GitHub account: <code>git push origin main</code></li>
-              <li>Go to <a href="https://vercel.com/new" target="_blank" rel="noopener" style="color: var(--accent-cyan); text-decoration: underline;">vercel.com/new</a> and connect your GitHub repo.</li>
-              <li>Click <strong>Deploy</strong>! Vercel automatically hosts the static assets worldwide for free.</li>
-            </ol>
-            <p style="font-size: 0.85rem; color: var(--text-dim);">
-              <i class="fa-solid fa-terminal"></i> To run the live Python camera inference app locally: <code>pip install -r requirements.txt &amp;&amp; python app.py</code>
-            </p>
-          </div>
-
-          <div style="text-align: center;">
-            <a href="https://vercel.com/new/clone?repository-url=https://github.com" target="_blank" rel="noopener" class="btn btn-primary" style="padding: 16px 28px; font-size: 1rem;">
-              <i class="fa-solid fa-triangle"></i> Deploy to Vercel
-            </a>
-          </div>
-        </div>
-
       </div>
-    </section>
 
-  </main>
+      <div class="framework-card">
+        <div class="framework-icon"><i class="fa-solid fa-laptop-code"></i></div>
+        <div class="framework-info">
+          <h4>OpenCV</h4>
+          <p>Real-time video capture, color transforms &amp; image processing</p>
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <div class="framework-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="framework-info">
+          <h4>scikit-learn</h4>
+          <p>Data normalization, preprocessing, and model evaluation metrics</p>
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <div class="framework-icon"><i class="fa-solid fa-volume-high"></i></div>
+        <div class="framework-info">
+          <h4>gTTS / Web Speech</h4>
+          <p>Converts recognized gestures into natural spoken Indian Hindi audio</p>
+        </div>
+      </div>
+
+      <div class="framework-card">
+        <div class="framework-icon"><i class="fa-solid fa-globe"></i></div>
+        <div class="framework-info">
+          <h4>Vercel &amp; WebRTC</h4>
+          <p>Zero-config client-side edge deployment accessible on any browser</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 3: PROBLEMS OUR DEAF PEOPLE FACE (THE SILENT DIVIDE)
+       ========================================================================== -->
+  <section id="deaf-challenges" class="content-section" style="border-top: 1px solid var(--panel-border);">
+    <div class="section-title-box">
+      <h2>The Silent Divide: Struggles of the Deaf Community</h2>
+      <p>Over 63 million deaf and hard-of-hearing Indians confront profound systemic and communication barriers every day.</p>
+    </div>
+
+    <div id="challengesGrid" class="challenges-grid">
+      <!-- Populated dynamically via app.js with bookmark support -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: VISUAL IMAGE GALLERY
+       ========================================================================== -->
+  <section id="gallery" class="content-section" style="border-top: 1px solid var(--panel-border);">
+    <div class="section-title-box">
+      <h2>Visual Showcase &amp; Image Gallery</h2>
+      <p>High-resolution depictions of Indian Sign Language in healthcare, schools, transit mobility, and our neural vision pipeline.</p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="gallery-filters" role="tablist">
+      <button class="gallery-filter-btn active" data-category="All">All Showcases</button>
+      <button class="gallery-filter-btn" data-category="Technology">AI &amp; Landmarks</button>
+      <button class="gallery-filter-btn" data-category="Community">Healthcare &amp; Care</button>
+      <button class="gallery-filter-btn" data-category="Education">Inclusive Schools</button>
+      <button class="gallery-filter-btn" data-category="ISL Signs">Sign Gestures</button>
+    </div>
+
+    <div id="galleryGrid" class="gallery-grid">
+      <!-- Populated dynamically via app.js -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 5: BOOKMARKS HUB
+       ========================================================================== -->
+  <section id="bookmarks-hub" class="content-section" style="border-top: 1px solid var(--panel-border);">
+    <div class="section-title-box">
+      <h2>My Bookmarked Collection</h2>
+      <p>Saved gestures, community challenge studies, and gallery assets saved in your browser.</p>
+    </div>
+
+    <div class="bookmarks-hub-card">
+      <div class="bookmarks-controls">
+        <div class="bookmarks-tabs">
+          <button class="bookmark-tab-btn active" data-filter="all">All Items (<span id="heroBookmarkCount">0</span>)</button>
+          <button class="bookmark-tab-btn" data-filter="sign">Signs Only</button>
+          <button class="bookmark-tab-btn" data-filter="challenge">Community Studies</button>
+          <button class="bookmark-tab-btn" data-filter="gallery">Gallery Images</button>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button id="exportBookmarksBtn" class="control-btn-alt" style="padding: 6px 12px; font-size: 0.8rem;">
+            <i class="fa-solid fa-download"></i> Export JSON
+          </button>
+          <button id="clearBookmarksBtn" class="control-btn-alt" style="padding: 6px 12px; font-size: 0.8rem; color: var(--accent-red);">
+            <i class="fa-solid fa-trash-can"></i> Clear All
+          </button>
+        </div>
+      </div>
+
+      <div id="bookmarksList" class="bookmarks-list">
+        <!-- Populated via app.js -->
+      </div>
+
+      <div id="bookmarksEmptyState" style="text-align: center; padding: 30px; color: var(--text-dim); display: none;">
+        <i class="fa-regular fa-bookmark" style="font-size: 2rem; margin-bottom: 8px;"></i>
+        <p>No bookmarks saved yet. Click the bookmark icon on any challenge card or gallery image to save it here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 6: ADVOCACY & EMERGENCY HELPLINES
+       ========================================================================== -->
+  <section id="advocacy" class="content-section" style="border-top: 1px solid var(--panel-border);">
+    <div class="section-title-box">
+      <h2>Deaf Advocacy &amp; Emergency Helplines</h2>
+      <p>Verified national institutions and emergency dispatch channels serving India's Deaf community.</p>
+    </div>
+
+    <div class="advocacy-grid">
+      <div class="advocacy-card">
+        <span style="color: var(--accent-amber); font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Government Centre</span>
+        <h4>ISLRTC New Delhi</h4>
+        <p>Indian Sign Language Research and Training Centre develops official curriculum, dictionaries, and interpreter certification standards.</p>
+        <span style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 12px;"><i class="fa-solid fa-envelope"></i> info@islrtc.nic.in</span>
+        <a href="http://www.islrtc.nic.in" target="_blank" rel="noopener noreferrer" class="control-btn-alt" style="display: inline-block; text-align: center; font-size: 0.82rem; padding: 6px 12px;">
+          Official Portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+      <div class="advocacy-card">
+        <span style="color: var(--accent-amber); font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Civil Rights NGO</span>
+        <h4>National Association of the Deaf (NAD)</h4>
+        <p>Premier national representative body championing sign language accessibility, equal job quotas, and judicial fairness across India.</p>
+        <span style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 12px;"><i class="fa-solid fa-phone"></i> Helpline &amp; WhatsApp Support</span>
+        <a href="https://nadindia.org" target="_blank" rel="noopener noreferrer" class="control-btn-alt" style="display: inline-block; text-align: center; font-size: 0.82rem; padding: 6px 12px;">
+          Learn More <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+      <div class="advocacy-card">
+        <span style="color: var(--accent-amber); font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Emergency Dispatch</span>
+        <h4>National Emergency 112 SOS</h4>
+        <p>India's unified emergency helpline with SMS and video dispatch capabilities for hearing-impaired and speech-impaired citizens.</p>
+        <span style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 12px;"><i class="fa-solid fa-comment-sms"></i> Emergency SMS: 112</span>
+        <a href="https://112.gov.in" target="_blank" rel="noopener noreferrer" class="control-btn-alt" style="display: inline-block; text-align: center; font-size: 0.82rem; padding: 6px 12px;">
+          Emergency Info <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- ==========================================================================
        MODAL: LIGHTBOX DIALOG
-       Follows modern-web-guidance: closedby="any", overscroll-behavior: contain
        ========================================================================== -->
   <dialog id="galleryModal" closedby="any" aria-labelledby="modalTitle">
     <div class="modal-content-box">
@@ -582,19 +643,79 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="modal-meta-row">
-          <span id="modalCategory" class="modal-category-pill">Category</span>
-          <div id="modalTags" class="gallery-tags"></div>
-        </div>
         <h3 id="modalTitle">Image Details</h3>
         <p id="modalCaption"></p>
-        <div id="modalDetails"></div>
-        <div class="modal-footer">
-          <button id="modalBookmarkBtn" class="btn btn-secondary">
+        <div id="modalDetails" class="details-box"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button id="modalBookmarkBtn" class="control-btn-alt" style="padding: 6px 14px; font-size: 0.85rem;">
             <i class="fa-regular fa-bookmark"></i> Bookmark Image
           </button>
-          <button onclick="document.getElementById('galleryModal').close()" class="btn btn-primary">
+          <button onclick="document.getElementById('galleryModal').close()" class="control-btn" style="padding: 6px 16px; font-size: 0.85rem;">
             Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ==========================================================================
+       MODAL: FREE VERCEL DEPLOYMENT GUIDE DIALOG
+       ========================================================================== -->
+  <dialog id="deployModal" closedby="any" aria-labelledby="deployModalTitle">
+    <div class="modal-content-box" style="max-width: 620px;">
+      <div class="modal-body" style="padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 id="deployModalTitle" style="display: flex; align-items: center; gap: 10px; font-size: 1.3rem;">
+            <i class="fa-solid fa-cloud-arrow-up" style="color: var(--accent-blue);"></i> Deploy Free on Vercel
+          </h3>
+          <button id="closeDeployModalBtn" class="modal-close-btn" style="position: static;" aria-label="Close Deploy Modal">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+          This web application is 100% client-side powered with MediaPipe &amp; WebRTC. It requires <strong>NO Python server, NO backend commands, and NO paid servers</strong>. You can host it for free forever on Vercel with HTTPS!
+        </p>
+
+        <div class="deploy-steps-list">
+          <div class="deploy-step">
+            <span class="deploy-step-num">1</span>
+            <div>
+              <strong>Push to GitHub:</strong>
+              <p>Commit your project files to your GitHub repository (e.g. <code>github.com/your-username/ISL-RealTime-Translator</code>).</p>
+            </div>
+          </div>
+
+          <div class="deploy-step">
+            <span class="deploy-step-num">2</span>
+            <div>
+              <strong>Sign in to Vercel:</strong>
+              <p>Go to <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style="color: var(--accent-blue); text-decoration: underline;">vercel.com</a> and sign in with your GitHub account (100% Free Forever).</p>
+            </div>
+          </div>
+
+          <div class="deploy-step">
+            <span class="deploy-step-num">3</span>
+            <div>
+              <strong>Import &amp; Deploy in 1 Click:</strong>
+              <p>Click <em>"Add New Project"</em> &rarr; Select your repository &rarr; Keep default settings &rarr; Click <strong>Deploy</strong>.</p>
+            </div>
+          </div>
+
+          <div class="deploy-step">
+            <span class="deploy-step-num">4</span>
+            <div>
+              <strong>Live Worldwide!</strong>
+              <p>Your site will be live at <code>https://your-project.vercel.app</code> with free SSL and instant webcam access.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; border-top: 1px solid var(--panel-border); padding-top: 14px;">
+          <a href="https://vercel.com/new" target="_blank" rel="noopener noreferrer" class="big-start-btn" style="padding: 8px 18px; font-size: 0.88rem; text-decoration: none;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Vercel Dashboard
+          </a>
+          <button onclick="document.getElementById('deployModal').close()" class="control-btn-alt" style="padding: 8px 16px; font-size: 0.88rem;">
+            Got It
           </button>
         </div>
       </div>
@@ -606,78 +727,21 @@
        ========================================================================== -->
   <aside id="bookmarkDrawer" class="bookmark-drawer" aria-label="Saved Bookmarks Panel">
     <div class="drawer-header">
-      <h3 style="font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-bookmark text-accent-amber"></i> Saved Items
+      <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-bookmark" style="color: var(--accent-amber);"></i> Saved Bookmarks
       </h3>
-      <button id="closeDrawerBtn" class="btn-icon" aria-label="Close saved drawer">
+      <button id="closeDrawerBtn" style="background: none; border: none; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer;">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
     <div class="drawer-content">
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
-        Quick access to your saved signs, challenge insights, and gallery items.
-      </p>
-      <div id="drawerBookmarksList" class="bookmarks-list">
-        <!-- Rendered via app.js -->
-      </div>
+      <div id="drawerBookmarksList" class="bookmarks-list"></div>
     </div>
   </aside>
 
-  <!-- ==========================================================================
-       FOOTER
-       ========================================================================== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <div class="brand-logo" style="margin-bottom: 16px;">
-            <div class="logo-badge">ISL</div>
-            <div class="logo-text-group">
-              <h3 style="font-size: 1.1rem;">ISL Real-Time Translator</h3>
-              <p>Deep Learning Vision Engine</p>
-            </div>
-          </div>
-          <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-muted);">
-            An open-source assistive intelligence initiative dedicated to breaking communication barriers for deaf and hard-of-hearing communities across India.
-          </p>
-        </div>
-
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="#about">About Architecture</a></li>
-            <li><a href="#deaf-challenges">Deaf Struggles</a></li>
-            <li><a href="#sign-studio">Sign Studio &amp; Audio</a></li>
-            <li><a href="#gallery">Visual Gallery</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Community</h4>
-          <ul>
-            <li><a href="http://www.islrtc.nic.in" target="_blank" rel="noopener">ISLRTC Portal</a></li>
-            <li><a href="https://nadindia.org" target="_blank" rel="noopener">NAD India</a></li>
-            <li><a href="https://112.gov.in" target="_blank" rel="noopener">Emergency 112</a></li>
-            <li><a href="#bookmarks-hub">My Bookmarks</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Developer</h4>
-          <ul>
-            <li><a href="https://github.com" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub Source</a></li>
-            <li><a href="#deploy"><i class="fa-solid fa-triangle"></i> Vercel Deployment</a></li>
-            <li><a href="https://mediapipe.dev" target="_blank" rel="noopener">MediaPipe Hands</a></li>
-            <li><a href="https://tensorflow.org" target="_blank" rel="noopener">TensorFlow &amp; Keras</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 ISL Real-Time Translator Project. Open-source assistive research.</p>
-        <p>Built with MediaPipe • CNN + LSTM • Web Speech API</p>
-      </div>
-    </div>
+  <!-- Footer -->
+  <footer class="portal-footer">
+    <p>&copy; 2026 ISL Real-Time Translator. Built with MediaPipe, CNN + LSTM &amp; Natural Indian Voice Synthesis.</p>
   </footer>
 
   <!-- Master JavaScript Application -->
